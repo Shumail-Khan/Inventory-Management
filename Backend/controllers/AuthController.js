@@ -9,7 +9,7 @@ const login = async (req, res) => {
         if (!user) return res.status(400).json({ sucess: false, msg: "User does not exist." });
 
         const isMatch = await bcrypt.compare(password, user.password);
-        console.log(isMatch)
+        
         if (!isMatch) return res.status(400).json({ sucess: false, msg: "Invalid credentials." });
         const token = jwt.sign({
             id: user._id,

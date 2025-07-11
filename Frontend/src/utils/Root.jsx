@@ -13,9 +13,13 @@ const Root = () => {
             } else if (user.role === "customer") {
                 navigate("/customer/dashboard");
             } else {
-                navigate("/");
+                navigate("/login");
             }
-        }
+        }   
+        else 
+            {
+                navigate("/login");
+            }
     }, [user, navigate]);
     return null;
 }
