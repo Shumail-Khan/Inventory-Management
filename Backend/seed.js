@@ -5,10 +5,10 @@ import connectDB from './Config/db.js';
 const register = async () => {
     try {
         connectDB();
-        const hashPassword = await bcrypt.hash("admin", 10);
+        const hashPassword = await bcrypt.hash("admin1", 10);
         const newUser = new User({
-            username: "admin",
-            email: "admin@gmail.com" ,
+            username: "admin1",
+            email: "admin1@gmail.com" ,
             password: hashPassword,
             address: "admin address",
             role: "admin"
