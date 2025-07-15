@@ -34,10 +34,10 @@ const updatecategory = async (req, res) => {
             return res.status(404).json({ message: 'Category not found' });
         }
 
-        const existingCategory = await Category.findOne({ categoryName });
-        if (existingCategory) {
-            return res.status(400).json({ message: 'Category already exists' });
-        }
+        // const existingCategory = await Category.findOne({ categoryName });
+        // if (existingCategory) {
+        //     return res.status(400).json({ message: 'Category already exists' });
+        // }
 
         const updatedCategory = await Category.findByIdAndUpdate(id, { categoryName, categoryDescription }, { new: true });
 

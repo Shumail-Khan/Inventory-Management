@@ -7,7 +7,7 @@ const Dashboard = () => {
         <div>
             <div className='flex'>
                 <Sidebar />
-                <div className='flex-1 ml-16 md:ml-64 bg-gray-500 min-h-screen'>
+                <div className='flex-1 ml-16 md:ml-64 min-h-screen'>
                     <Outlet />
                 </div>
             </div>

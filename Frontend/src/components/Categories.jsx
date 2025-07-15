@@ -8,6 +8,7 @@ const Categories = () => {
   })
 
   const [categories, setCategories] = useState([]);
+  const [filtered, setFiltered] = useState([]);
   const [loading, setLoading] = useState(false);
   const [editCategory, setEditCategory] = useState(null);
 
@@ -20,6 +21,7 @@ const Categories = () => {
         }
       });
       setCategories(response.data.categories);
+      setFiltered(response.data.categories);
       setLoading(false);
     } catch (error) {
       console.error("Error fetching categories", error);
@@ -75,6 +77,11 @@ const Categories = () => {
     
   }
 
+  const handleSearch = async (e) => {
+    setFiltered(
+      categories.filter((category) => category.categoryName.toLowerCase().includes(e.target.value.toLowerCase()))
+    )
+  }
 
 
   const handleSubmit = async (e) => {
@@ -132,7 +139,14 @@ const Categories = () => {
   return (
     <div className="p-6">
       <h1 className="text-2xl font-bold mb-6 text-sky-700">Category Management</h1>
+      <input
+        type="text"
+        placeholder="Search"
+        onChange={handleSearch}
+        className="border border-gray-300 p-2 bg-white rounded px-4 w-full md:w-1/3 focus:outline-none focus:ring-2 focus:ring-sky-400 transition ml-6"
+      />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        
         {/* Add Category Form */}
         <div className="bg-white shadow rounded-lg p-6">
           <h2 className="text-xl font-semibold mb-4 text-gray-800">{editCategory ? "Edit Category" : "Add Category"}</h2>
@@ -187,7 +201,7 @@ const Categories = () => {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
-                {categories.map((category, index) => (
+                {filtered.map((category, index) => (
                   <tr key={index} className="hover:bg-gray-50">
                     <td className="px-4 py-2">{index + 1}</td>
                     <td className="px-4 py-2">{category.categoryName}</td>
@@ -199,7 +213,7 @@ const Categories = () => {
                     </td>
                   </tr>
                 ))}
-                {categories.length === 0 && (
+                {filtered.length === 0 && (
                   <tr>
                     <td colSpan={3} className="text-center py-4 text-gray-400">No categories found.</td>
                   </tr>
