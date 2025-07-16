@@ -75,7 +75,7 @@ const Suppliers = () => {
         }
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
       alert("Error Adding Supplier");
     }
   }
@@ -118,7 +118,7 @@ const Suppliers = () => {
         fetchSuppliers();
       }
       else {
-        console.log("Error Deleting Supplier", response.data);
+        console.error("Error Deleting Supplier", response.data);
       }
     }
     catch (error) {

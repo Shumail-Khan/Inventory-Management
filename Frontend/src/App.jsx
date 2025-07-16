@@ -6,6 +6,7 @@ import Dashboard from './pages/Dashboard.jsx'
 import Categories from './components/Categories.jsx'
 import Suppliers from './components/Suppliers.jsx'
 import Products from './components/Products.jsx'
+import Logout from './components/Logout.jsx'
 function App() {
 
   return (
@@ -25,7 +26,7 @@ function App() {
           <Route path='orders' element={<h1>Also orders Dashboard</h1>}/>
           <Route path='users' element={<h1>Also users Dashboard</h1>}/>
           <Route path='profile' element={<h1>Also profile Dashboard</h1>}/>
-          <Route path='logout' element={<h1>Also logout Dashboard</h1>}/>
+          <Route path='logout' element={<Logout/>}/>
           
         </Route>  
 
