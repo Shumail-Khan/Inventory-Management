@@ -5,6 +5,7 @@ import authRoutes from "./routes/Auth.js";
 import categoryRoutes from "./routes/Category.js";
 import supplierRoutes from "./routes/Supplier.js";
 import productRoutes from "./routes/Product.js";
+import userRoutes from "./routes/User.js";
 const app = express();
 
 app.use(cors());
@@ -13,6 +14,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/category', categoryRoutes);
 app.use('/api/supplier', supplierRoutes);
 app.use('/api/product', productRoutes);
+app.use('/api/users', userRoutes);
 
 
 
