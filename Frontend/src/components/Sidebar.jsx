@@ -1,18 +1,34 @@
-import React from 'react'
 import { NavLink } from 'react-router'
 import { FaHome, FaBox, FaTable, FaTruck, FaShoppingCart, FaUsers, FaCog, FaSignOutAlt } from 'react-icons/fa'
+import { useEffect, useState } from 'react'
+import { useAuth } from '../context/AuthContext';
 
 const Sidebar = () => {
+    const {user} = useAuth();
     const menuItems = [
-        { name: "Dashboard", path: "/admin-dashboard/", icon: <FaHome />, isParent:true},
-        { name: "Categories", path: "/admin-dashboard/categories", icon: <FaTable />, isParent:false},
-        { name: "Products", path: "/admin-dashboard/products", icon: <FaBox />, isParent:false},
-        { name: "Suppliers", path: "/admin-dashboard/suppliers", icon: <FaTruck />, isParent:false},
-        { name: "Orders", path: "/admin-dashboard/orders", icon: <FaShoppingCart />, isParent:false},
-        { name: "Users", path: "/admin-dashboard/users", icon: <FaUsers />, isParent:false},
-        { name: "Profile", path: "/admin-dashboard/profile", icon: <FaCog />, isParent:false},
-        { name: "Logout", path: "/admin-dashboard/logout", icon: <FaSignOutAlt />, isParent:false},
+        { name: "Dashboard", path: "/admin-dashboard/", icon: <FaHome />, isParent: true },
+        { name: "Categories", path: "/admin-dashboard/categories", icon: <FaTable />, isParent: false },
+        { name: "Products", path: "/admin-dashboard/products", icon: <FaBox />, isParent: false },
+        { name: "Suppliers", path: "/admin-dashboard/suppliers", icon: <FaTruck />, isParent: false },
+        { name: "Orders", path: "/admin-dashboard/orders", icon: <FaShoppingCart />, isParent: false },
+        { name: "Users", path: "/admin-dashboard/users", icon: <FaUsers />, isParent: false },
+        { name: "Profile", path: "/admin-dashboard/profile", icon: <FaCog />, isParent: false },
+        { name: "Logout", path: "/admin-dashboard/logout", icon: <FaSignOutAlt />, isParent: false },
     ]
+
+    const customerItems = [
+        { name: "Products", path: "/customer-dashboard/", icon: <FaBox />, isParent: true },
+        { name: "Orders", path: "/customer-dashboard/orders", icon: <FaShoppingCart />, isParent: false },
+        { name: "Profile", path: "/customer-dashboard/profile", icon: <FaCog />, isParent: false },
+        { name: "Logout", path: "/customer-dashboard/logout", icon: <FaSignOutAlt />, isParent: false },
+    ]
+
+    const [menuLinks, setMenuLinks] = useState(customerItems);
+
+    useEffect(() => {
+        if(user && user.role === "admin") setMenuLinks(menuItems);
+    }, [])
+
     return (
         <aside className="h-screen w-20 md:w-64 bg-white shadow-lg flex flex-col justify-between fixed top-0 left-0 z-40 transition-all">
             <div>
@@ -22,7 +38,7 @@ const Sidebar = () => {
                     <span className="text-xs font-semibold text-gray-400 hidden md:inline">IMS</span>
                 </div>
                 <nav className="flex flex-col mt-6 space-y-2 px-2 md:px-4">
-                    {menuItems.map((item, index) => (
+                    {menuLinks.map((item, index) => (
                         <NavLink
                             end={item.isParent}
                             key={index}

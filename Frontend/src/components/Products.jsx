@@ -227,7 +227,7 @@ const Products = () => {
                                 </td>
                             </tr>
                         ))}
-                        {products.length === 0 && (
+                        {filtered.length === 0 && (
                             <tr>
                                 <td colSpan={5} className="text-center py-4 text-gray-400">No Records found.</td>
                             </tr>

@@ -8,6 +8,10 @@ import Suppliers from './components/Suppliers.jsx'
 import Products from './components/Products.jsx'
 import Logout from './components/Logout.jsx'
 import Users from './components/Users.jsx'
+import CustomerProducts from './components/CustomerProducts.jsx'
+import Orders from './components/Orders.jsx'
+import Profile from './components/Profile.jsx'
+
 function App() {
 
   return (
@@ -31,7 +35,12 @@ function App() {
           
         </Route>  
 
-        <Route path="/costumer-dashboard" element={<h1>Employee Dashboard</h1>} />
+        <Route path="/customer-dashboard" element={<Dashboard/>} >
+          <Route index element={<CustomerProducts/>}/>
+          <Route path='orders' element={<Orders/>}/>
+          <Route path='profile' element={<Profile/>}/>
+          <Route path='logout' element={<Logout/>}/>
+        </Route>
         <Route path="/login" element={<Login />} />
         <Route path='/unauthorized' element={<h1 className='font-bold text-3xl mt-20 ml-20'>Unauthorized</h1>}></Route>
       </Routes>

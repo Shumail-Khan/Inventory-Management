@@ -42,4 +42,40 @@ const deleteuser = async (req, res) => {
     }
 }
 
-export { getusers, adduser, deleteuser }
+const getuser = async (req, res) => {
+    try {
+        const userId = req.user._id;
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        return res.status(200).json({ message: 'User fetched successfully', user });
+    }
+    catch (error) {
+        return res.status(500).json({ message: 'Internal Server Error', error: error.message });
+    }
+}
+
+const updateuser = async (req, res) => {
+    try{
+        const userId = req.user._id;
+        const { username, email, password, address} = req.body;
+
+        const updatedata = {username, email, address};
+        if (password&&password.trim() !== '') {
+            const hashedPassword = await bcrypt.hash(password, 10);
+            updatedata.password = hashedPassword;
+        }
+
+        const updatedUser = await User.findByIdAndUpdate(userId, updatedata, { new: true }).select('-password');
+        if(!updatedUser){
+            return res.status(404).json({ message: 'User not found' });
+        }
+        return res.status(200).json({ message: 'User updated successfully', user: updatedUser });
+    }
+    catch(error){
+        return res.status(500).json({ message: 'Internal Server Error', error: error.message });
+    }
+}
+
+export { getusers, adduser, deleteuser, getuser, updateuser }
