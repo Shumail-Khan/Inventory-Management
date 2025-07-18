@@ -68,13 +68,18 @@ const Categories = () => {
         fetchCategories();
       }
       else {
-        console.log("Error Deleting Category", response.data);
+        console.error("Error Deleting Category", response.data);
       }
     }
     catch (error) {
-      console.error("Error Performing Action", error);
+      if (error.response) {
+        alert(error.response.data.message);
+      }
+      else {
+        console.error("Error Performing Action", error);
+      }
     }
-    
+
   }
 
   const handleSearch = async (e) => {
@@ -146,7 +151,7 @@ const Categories = () => {
         className="border border-gray-300 p-2 bg-white rounded px-4 w-full md:w-1/3 focus:outline-none focus:ring-2 focus:ring-sky-400 transition ml-6"
       />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        
+
         {/* Add Category Form */}
         <div className="bg-white shadow rounded-lg p-6">
           <h2 className="text-xl font-semibold mb-4 text-gray-800">{editCategory ? "Edit Category" : "Add Category"}</h2>
