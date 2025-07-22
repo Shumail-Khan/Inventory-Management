@@ -1,4 +1,6 @@
 import Category from '../models/Category.js'
+import Product from '../models/Product.js'
+
 const addcategory = async (req, res) => {
     try {
         const { categoryName, categoryDescription } = req.body;
@@ -34,11 +36,6 @@ const updatecategory = async (req, res) => {
             return res.status(404).json({ message: 'Category not found' });
         }
 
-        // const existingCategory = await Category.findOne({ categoryName });
-        // if (existingCategory) {
-        //     return res.status(400).json({ message: 'Category already exists' });
-        // }
-
         const updatedCategory = await Category.findByIdAndUpdate(id, { categoryName, categoryDescription }, { new: true });
 
         return res.status(200).json({ message: 'Category updated successfully', category: updatedCategory });
@@ -49,8 +46,14 @@ const updatecategory = async (req, res) => {
 }
 
 const deletecategory = async (req, res) => {
-    const { id } = req.params;
     try {
+        const { id } = req.params;
+        const productCount = await Product.countDocuments({ categoryId: id });
+
+        if(productCount > 0){
+            return res.status(400).json({ message: 'Cannot delete category with associated products' });
+        }
+
         const category = await Category.findByIdAndDelete(id);
         if (!category) {
             return res.status(404).json({ message: 'Category not found' });

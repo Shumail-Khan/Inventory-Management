@@ -1,4 +1,5 @@
 import Supplier from '../models/Supplier.js';
+import Product from '../models/Product.js';
 
 const addsupplier = async (req, res) => {
     try {
@@ -49,8 +50,14 @@ const updatesupplier = async (req, res) => {
 }
 
 const deletesupplier = async (req, res) => {
-    const { id } = req.params;
     try {
+        const { id } = req.params;
+        const productCount = await Product.countDocuments({ supplierId: id });
+
+        if(productCount > 0){
+            return res.status(400).json({ message: 'Cannot delete supplier with associated products' });
+        }
+        
         const supplier = await Supplier.findByIdAndDelete(id);
         if (!supplier) {
             return res.status(404).json({ message: 'Supplier not found' });

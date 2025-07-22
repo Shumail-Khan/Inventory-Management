@@ -201,37 +201,39 @@ const Products = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {filtered.map((product, index) => (
-                            <tr key={product._id} className="hover:bg-gray-50">
-                                <td className="px-4 py-2">{index + 1}</td>
-                                <td className="px-4 py-2">{product.name}</td>
-                                <td className="px-4 py-2">{product.categoryId.categoryName}</td>
-                                <td className="px-4 py-2">{product.supplierId.name}</td>
-                                <td className="px-4 py-2">{product.price}</td>
-                                <td className="px-4 py-2">
-                                    <span className='font-semibold'>
-                                        {
-                                            product.stock === 0 ?
-                                                <span className=" bg-red-100 text-red-600 p-2 rounded-full">{product.stock}</span>
-                                                : product.stock < 5 ?
-                                                    <span className="bg-yellow-100 text-yellow-600 p-2 rounded-full">{product.stock}</span>
-                                                    : <span className="bg-green-100 text-green-600 p-2 rounded-full">{product.stock}</span>
-                                        }
-                                    </span>
-                                </td>
-                                <td className="px-4 py-2 space-x-2">
-                                    <button className="bg-yellow-400 text-white px-3 py-1 rounded hover:cursor-pointer hover:bg-yellow-500 transition text-xs"
-                                        onClick={() => handleEdit(product)}>Edit</button>
-                                    <button className="bg-red-500 text-white px-3 py-1 rounded hover:cursor-pointer hover:bg-red-600 transition text-xs"
-                                        onClick={() => handleDelete(product._id)}>Delete</button>
-                                </td>
-                            </tr>
-                        ))}
-                        {filtered.length === 0 && (
-                            <tr>
-                                <td colSpan={5} className="text-center py-4 text-gray-400">No Records found.</td>
-                            </tr>
-                        )}
+                        {
+                            filtered.length > 0 && filtered.map((product, index) => (
+                                <tr key={product._id} className="hover:bg-gray-50">
+                                    <td className="px-4 py-2">{index + 1}</td>
+                                    <td className="px-4 py-2">{product.name}</td>
+                                    <td className="px-4 py-2">{product.categoryId.categoryName}</td>
+                                    <td className="px-4 py-2">{product.supplierId.name}</td>
+                                    <td className="px-4 py-2">{product.price}</td>
+                                    <td className="px-4 py-2">
+                                        <span className='font-semibold'>
+                                            {
+                                                product.stock === 0 ?
+                                                    <span className=" bg-red-100 text-red-600 p-2 rounded-full">{product.stock}</span>
+                                                    : product.stock < 5 ?
+                                                        <span className="bg-yellow-100 text-yellow-600 p-2 rounded-full">{product.stock}</span>
+                                                        : <span className="bg-green-100 text-green-600 p-2 rounded-full">{product.stock}</span>
+                                            }
+                                        </span>
+                                    </td>
+                                    <td className="px-4 py-2 space-x-2">
+                                        <button className="bg-yellow-400 text-white px-3 py-1 rounded hover:cursor-pointer hover:bg-yellow-500 transition text-xs"
+                                            onClick={() => handleEdit(product)}>Edit</button>
+                                        <button className="bg-red-500 text-white px-3 py-1 rounded hover:cursor-pointer hover:bg-red-600 transition text-xs"
+                                            onClick={() => handleDelete(product._id)}>Delete</button>
+                                    </td>
+                                </tr>
+                            ))}
+                        {
+                            filtered.length === 0 && (
+                                <tr>
+                                    <td colSpan={5} className="text-center py-4 text-gray-400">No Records found.</td>
+                                </tr>
+                            )}
                     </tbody>
                 </table>
             </div>
@@ -269,7 +271,7 @@ const Products = () => {
                                 <input
                                     type="number"
                                     name='price'
-                                    min= "0"
+                                    min="0"
                                     value={formData.price}
                                     onChange={handleFormChange}
                                     placeholder="Enter Price"
@@ -279,7 +281,7 @@ const Products = () => {
                                 <input
                                     type="number"
                                     name='stock'
-                                    min= "0"
+                                    min="0"
                                     value={formData.stock}
                                     onChange={handleFormChange}
                                     placeholder="Enter Stock"

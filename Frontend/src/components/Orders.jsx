@@ -44,27 +44,29 @@ const Orders = () => {
             </tr>
           </thead>
           <tbody>
-            {orders.map((order, index) => (
-              <tr key={order._id} className="hover:bg-gray-50">
-                <td className="px-4 py-2">{index + 1}</td>
-                <td className="px-4 py-2">{order.product.name}</td>
-                <td className="px-4 py-2">{order.product.categoryId.categoryName}</td>
-                <td className="px-4 py-2">{order.quantity}</td>
-                <td className="px-4 py-2">{order.total_price}</td>
-                <td className="px-4 py-2">
-                  {
-                  new Date(order.orderDate).toDateString()
-                  }
-                </td>
-
-
-              </tr>
-            ))}
-            {orders.length === 0 && (
-              <tr>
-                <td colSpan={5} className="text-center py-4 text-gray-400">No Records found.</td>
-              </tr>
-            )}
+            {
+              orders.length > 0 ? (
+                orders.map((order, index) => (
+                  <tr key={order._id} className="hover:bg-gray-50">
+                    <td className="px-4 py-2">{index + 1}</td>
+                    <td className="px-4 py-2">{order.product.name}</td>
+                    <td className="px-4 py-2">{order.product.categoryId.categoryName}</td>
+                    <td className="px-4 py-2">{order.quantity}</td>
+                    <td className="px-4 py-2">{order.total_price}</td>
+                    <td className="px-4 py-2">
+                      {
+                        new Date(order.orderDate).toDateString()
+                      }
+                    </td>
+                  </tr>
+                ))) :
+                (
+                  orders.length === 0 && (
+                    <tr>
+                      <td colSpan={5} className="text-center py-4 text-gray-400">No Records found.</td>
+                    </tr>
+                  ))
+            }
           </tbody>
         </table>
       </div>
